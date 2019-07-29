@@ -3,6 +3,7 @@ from six import string_types, text_type, binary_type, integer_types
 import datetime
 import iso8601
 import pytz
+import socket
 from calendar import timegm
 from decimal import Decimal, localcontext
 from uuid import UUID
@@ -429,6 +430,14 @@ class Enum8Field(BaseEnumField):
 class Enum16Field(BaseEnumField):
 
     db_type = 'Enum16'
+
+
+class IPv4Field(StringField):
+
+    db_type = 'IPv4'
+
+    def validate(self, value):
+        socket.inet_aton(value)
 
 
 class ArrayField(Field):
